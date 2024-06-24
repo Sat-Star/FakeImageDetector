@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Image</title>
+    <style>
+      /* Reset some basic styles */
+      body,
+      h1,
+      form {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Set a smooth font and background color for the body */
+      body {
+        font-family: "Arial", sans-serif;
+        background: #f5f7fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+      }
+
+      /* Style the heading */
+      h1 {
+        font-size: 2em;
+        color: #333;
+        margin-bottom: 20px;
+        width: 100%;
+      }
+
+      /* Style the form */
+      form {
+        background: #fff;
+        padding: 20px 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      /* Style the file input container */
+      .file-input-container {
+        position: relative;
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 20px; /* Add some space below the file button */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .file-input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        cursor: pointer;
+      }
+
+      .file-label {
+        display: inline-block;
+        width: 100%;
+        max-width: 150px;
+        height: 40px;
+        line-height: 40px;
+        background: #007bff;
+        color: #fff;
+        text-align: center;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        margin-right: 10px;
+      }
+
+      .file-label:hover {
+        background: #0056b3;
+      }
+
+      /* Style the submit button */
+      input[type="submit"] {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background: #218838;
+      }
+
+      /* Style for displaying file name */
+      .file-name {
+        font-size: 0.9em;
+        color: #333;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+    </style>
+  </head>
+  <body>
+    <form
+      action="{{ url_for('upload_file') }}"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <h1>Upload an Image for Prediction</h1>
+      <div class="file-input-container">
+        <input
+          type="file"
+          class="file-input"
+          id="file"
+          name="file"
+          onchange="updateFileName()"
+        />
+        <label for="file" class="file-label">Choose File</label>
+        <span id="file-name" class="file-name">No file chosen</span>
+      </div>
+      <input type="submit" value="Upload Image" />
+    </form>
+    <script>
+      function updateFileName() {
+        const input = document.getElementById("file");
+        const fileName =
+          input.files.length > 0 ? input.files[0].name : "No file chosen";
+        document.getElementById("file-name").textContent = fileName;
+      }
+    </script>
+  </body>
+</html>
